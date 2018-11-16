@@ -5,6 +5,7 @@
 
 #include "Transaccion.h"
 
+using namespace std;
 class Sistema{
 public:
     //crea un sistema vacia de stock, solo con los empleados en un pricipio
@@ -39,7 +40,8 @@ public:
 
 
 private:
-//PENSAR
+    std::map(empleado, Transaccion) _empleadoPorTransaccion;
+    stock _catalogo;
 
 };
 

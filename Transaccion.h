@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "Parte.h"
 using namespace std;
 
 class Transaccion{
@@ -35,7 +36,7 @@ public:
 
 
 private:
-
+diccPartes(Parte, std::tuple<itCatalogo, stock>) _partePorTrans;
 
 
 };
