@@ -1,0 +1,6 @@
+#ifndef TP2DISEÑO_PARTE_H
+#define TP2DISEÑO_PARTE_H
+
+
+
+#endif //TP2DISEÑO_PARTE_H
