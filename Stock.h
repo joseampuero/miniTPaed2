@@ -3,6 +3,8 @@
 
 #include "Parte.h"
 #include <set>
+typedef IdStock string;
+
 using namespace std;
 
 template <class T>
@@ -15,16 +17,18 @@ public:
 
     /*pre: true*/
     /*post: crea una nueva linea con todos los parametros*/
-    void agregarLinea(_ID p, _subparte s, _estado e);
+    void agregarLinea(ID p, list<_ID> s, Estado e);
+
+    Linea verLinea(IdStock i);
 
     /*pre: p se encuentra en el stk*/
     /*post: la linea donde p es _ID es borrada*/
-    void eliminarLinea(_ID p);
+    void eliminarLinea(ID p);
 
 private:
     struct Linea{
-    T _idStock;
-    std::list(_idStock) _subparteStock;
+    IdStock _idStock;
+    std::list<IdStock> _subparteStock;
     bool* _estadoStock;
 
     Linea(): _idStock(new T), _subparteStock(new T), _estadoStock(NULL){};
@@ -48,7 +52,7 @@ private:
      * */
 
     /*Linea: representa un renglon con informacion(id, subpartes, estado) acerca de una parte determinada
-     *      _idStock: es el nombre de la parte con la que se identifica en el sistema o transaccion.
+     *      IdStock: es el nombre de la parte con la que se identifica en el sistema o transaccion.
      *      _subparteStock: nos da a saber las subpartes de una parte no atómica.
      *      _estadoStock: contamos con esta información para saber en que condiciones se encuentra una parte atómica.
      * */

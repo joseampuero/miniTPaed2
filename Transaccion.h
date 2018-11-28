@@ -2,6 +2,7 @@
 #define TP2DISEÑO_TRANSACCION_H
 
 #include <tuple>
+#include <string>
 #include "Stock.h"
 #include "StringMap.h"
 
@@ -9,9 +10,6 @@ using namespace std;
 
 class Transaccion{
 public:
-    //constructor
-    Transaccion();
-
     ~Transaccion();
 
     /*pre: parte no esta siendo usada por otro empleado*/
@@ -21,7 +19,7 @@ public:
      * al crearse el areaDeTrabajo, parte pasa a ser el _idStock,
      * y los otros espacios (_subparte, _estado) permanecen igual si no han sido modificadas hasta el momento,
      * si no, se copia la informacion donde corresponde*/
-    void iniciar(itCatalogo, _ID parte);
+    Transaccion(itCatalogo, _ID parte);
 
     /*pre:parte es atomica y
      * si la condicion anterior es NULL entonces estado puede ser true o false(se encuentra en buenas condiciones o en
@@ -36,7 +34,7 @@ public:
     /*pre: si parte es atomica s es vacia*/
     /*post: le asigna un id a cada subparte de parte y cada una de ellas quedan afectadas por esta transaccion
      * agregamos s a _subparteStock de Linea _areaDeTrabajo y tambien a _subparte de Parte */
-    void registrarSubpartes(_ID parte, _subparte s);
+    void registrarSubpartes(_ID parte, list<_ID> s);
 
     /*pre: parte no es atomica, _subparte no es vacia y fueron registradas previamente */
     /*post: devolvemos las subpartes de parte: parte deja de tener entidad (ya no puedo
@@ -54,12 +52,23 @@ public:
      * deja de tener entidad en el sistema(la linea donde parte es _ID se borra del catalogo, para eso contamos
      * con el itCatalgo) y se agregan todas las modificaciones realizadas a _catalogo.
      * Si _confirmar es false se sigue trabajando con la parte que corresponda*/
+
+
+    /*y con mi puntero al map empleadoPorTransaccion una vez que se confirmo borro el nodo dentro de map que contiene
+     * la transaccion con la que estoy trabajando*/
+
+
     void confirmarTransaccion() const;
 
     /*pre: true*/
     /*post: si _cancelar es true:
      * todas las modificaciones realizadas a parte que estan en el _areaDeTrabajo no se veran reflejadas en _catalogo
      * si _cancelar es false es porque se sigue trabajando con la parte que corresponda*/
+
+
+    /*y con mi puntero al map empleadoPorTransaccion una vez que se cancela la transaccion borro el nodo dentro de map
+     * que contiene la transaccion con la que estoy trabajando*/
+
     void cancelarTransaccion() const;
 
     friend class Stock; // lo uso para tener acceso a la parte privada de Stock y poder modificar
@@ -67,15 +76,14 @@ public:
 
 private:
 
-    StringMap(_ID clave, std::tuple<Stock* itCatalogo, Stock _areaDeTrabajo>) _partePorTransaccion;
-    bool _confirmar;
-    bool _cancelar;
+    StringMap(ID clave, std::tuple<Stock* itCatalogo, Stock _areaDeTrabajo>, map*<empleado, Transaccion> itEmpTra>) _partePorTransaccion;
+
 
     /*INVARIANTE DE REPRESENTACION*/
     /**
      * No se puede setear en true _confirmar y _cancelar en una misma  funcion de transacción.
      * Cada clave de _partePorTransaccion es unica.
-     * Dentro del siginificado, itCatalogo solo puede apuntar a una única linea del catalogo.
+     * Dentro del significado, itCatalogo solo puede apuntar a una única linea del catalogo.
      * No puedo tener dos _areasDeTrabajo iguales
      * **/
 
