@@ -46,7 +46,7 @@ private:
 
 
    //--------------------------explicación de la estructura---------------------------//
-    /*ID: usamos un tipo T para el identificador que va tener parte, en particular va ser string, asi la usamos
+    /*ID: usamos un tipo T para el identificador que va tener parte, en particular va a ser string, asi la usamos
      * como clave dentro de stringMap*/
 
     /*_subparte: está montada en una lista enlazada que va almacenar las subpartes de parte, elegimos esta

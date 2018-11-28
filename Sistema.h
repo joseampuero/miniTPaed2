@@ -9,7 +9,7 @@ typedef empleado int;
 using namespace std;
 class Sistema{
 public:
-    //crea un sistema vacio de stock, solo con los empleados en un pricipio
+    //crea un sistema vacio de stock, solo con los empleados en un principio
     /*pre: true*/
     /*post: crea un sistema con los empleados*/
     Sistema(set<empleado> e);
@@ -21,7 +21,7 @@ public:
 
     /*pre: p no pertenece al sistema*/
     /*post: agrega una nueva parte al sistema, especificamente al stock,
-     * al ingresar no se registra ningun detalle sobre p, solo el _ID
+     * al ingresar no se registra ningun detalle sobre p, solo el ID
      * Se la considera suelta al entrar al sistema*/
     void comprar(Parte p, ID parte);
 
@@ -43,9 +43,8 @@ public:
 
     /*pre: true*/
     /*post: si el empleado que me pasan por parametro aparece en el diccionario _empleadoPorTransaccion
-     * retornaremos true
-     * ///////////y la linea(en particular el ID) con la que esta trabajando,
-     * si no, <false, null> el empleado no esta realizando ninguna transaccion*/
+     * retornamos true
+     */
     bool estaOcupado(empleado e)const;
 
 
@@ -71,14 +70,14 @@ private:
 
     /*_empleadoPorTransaccion: esta montado en un diccionario linal que representa la transaccion que está realizando
      * un empleado.
-     * Si un empleado aparece en este diccionario siginifica que esta ocupado.
+     * Si un empleado aparece en este diccionario significa que está ocupado.
      * Cada funcion de Transaccion está explicado en Transaccion.h .
-     * Elegimos un diccionario lineal ya que cuenta con las caracteristicas de clave-valor y cada clave es unica,
+     * Elegimos un diccionario lineal ya que cuenta con las caracteristicas de clave-valor y cada clave es única,
      * como empleado.
      * Podriamos haber elegido un diccAVl(aprovechando que las claves son enteros) o
      * un diccTrie(tomando como longitud de la clave log(empleado) ) pero como no teniamos ninguna restricción
      * respecto a la complejidad que debia cumplir que un empleado inicie o termine o verifique si está ocupado con
-     * alguna una transaccion elegimos std::map.
+     * alguna transaccion elegimos std::map.
      * */
 
     /*_catalogo: representa el catalogo del sistema, lista todas las partes con las que contamos para ser modificadas

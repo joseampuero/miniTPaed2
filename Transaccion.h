@@ -12,14 +12,14 @@ class Transaccion{
 public:
     ~Transaccion();
 
-    /*pre: parte no esta siendo usada por otro empleado*/
-    /*post: buscamos parte en el _catalogo dejamos un puntero a esa linea para reflejar que esta siendo usada,
+    /*pre: parte no está siendo usada por otro empleado*/
+    /*post: buscamos parte en el _catalogo dejamos un puntero a esa linea para reflejar que está siendo usada,
      * parte pasa a ser clave de _partePorTransaccion,
      * se crea un _areaDeTrabajo para poder realizar las transacciones,
      * al crearse el areaDeTrabajo, parte pasa a ser el _idStock,
      * y los otros espacios (_subparte, _estado) permanecen igual si no han sido modificadas hasta el momento,
      * si no, se copia la informacion donde corresponde*/
-    Transaccion(itCatalogo, _ID parte);
+    Transaccion(itCatalogo, ID parte);
 
     /*pre:parte es atomica y
      * si la condicion anterior es NULL entonces estado puede ser true o false(se encuentra en buenas condiciones o en
@@ -29,12 +29,12 @@ public:
      * una parte que ya se encuentra en buenas condiciones)*/
     /*post: le adjudica un estado a parte y  estado pasa a ser el _estadoStock en el _areaDeTrabajo de parte y
      * _estado en Parte*/
-    void registrarEstado(_ID parte, bool estado);
+    void registrarEstado(ID parte, bool estado);
 
     /*pre: si parte es atomica s es vacia*/
     /*post: le asigna un id a cada subparte de parte y cada una de ellas quedan afectadas por esta transaccion
      * agregamos s a _subparteStock de Linea _areaDeTrabajo y tambien a _subparte de Parte */
-    void registrarSubpartes(_ID parte, list<_ID> s);
+    void registrarSubpartes(ID parte, list<ID> s);
 
     /*pre: parte no es atomica, _subparte no es vacia y fueron registradas previamente */
     /*post: devolvemos las subpartes de parte: parte deja de tener entidad (ya no puedo
@@ -43,7 +43,7 @@ public:
      * y cada _ID de _subparte pasan a ser clave de _partePorTransaccion y son nuevas Parte-s, ahora el empleado pasara
      * a tener un nuevo _areaDeTrabajo , o mas, dependiendo la longitud de _subparte, donde podra realizar nuevas
      * transacciones con cada una de ellas si lo desea*/
-    void desarmar(_ID parte);
+    void desarmar(ID parte);
 
     /*pre:true*/
     /*post:si _confirmar es true entonces:
@@ -54,7 +54,7 @@ public:
      * Si _confirmar es false se sigue trabajando con la parte que corresponda*/
 
 
-    /*y con mi puntero al map empleadoPorTransaccion una vez que se confirmo borro el nodo dentro de map que contiene
+    /*y con mi puntero al map empleadoPorTransaccion borro el nodo dentro de map que contiene
      * la transaccion con la que estoy trabajando*/
 
 
@@ -66,7 +66,7 @@ public:
      * si _cancelar es false es porque se sigue trabajando con la parte que corresponda*/
 
 
-    /*y con mi puntero al map empleadoPorTransaccion una vez que se cancela la transaccion borro el nodo dentro de map
+    /*y con mi puntero al map empleadoPorTransaccion borro el nodo dentro de map
      * que contiene la transaccion con la que estoy trabajando*/
 
     void cancelarTransaccion() const;
@@ -99,15 +99,14 @@ private:
      *      itCatalogo: apunta a una única linea del catalogo, esto quiere decir que un empleado esta trabajando con
      * esta parte.
      *      _areaDeTrabajo: en este Stock vamos a ir almacenando todos los cambios que vamos a ir reailizando a
-     * lo largo de la transaccion, esto no es visible para el sistema*/
+     * lo largo de la transaccion, esto no es visible para el sistema.
+     *
+     *      itEmpTra: apunta al nodo dentro de map donde se encuntra la transaccion con la que está
+     * trabajando el empleado , su funcion en particular es para poder eliminar el nodo dentro del map
+     * con la que se está trabajando una vez que se confirma o cancela.
+     * */
 
-    /*_confrmar: si se setea en true, implica que un empleado ya finalizo su trabajo y su _areaDeTrabajo es pasado
-     * por copia al catalago con todas las modificaciones realizadas y se destruye el _areaDeTrabajo y el diccionario
-     * _partePorTransaccion*/
 
-    /*_cancelar: si se setea en true, implica que todas las modificaciones a parte que fuimos realizando a
-     * lo largo de la transaccion no se veran reflejadas en el catalogo del sistema y se destruye el _areaDeTrabajo
-     * y el diccionario _partePorTransaccion */
 
 };
 

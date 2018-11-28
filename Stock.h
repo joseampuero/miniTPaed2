@@ -17,7 +17,7 @@ public:
 
     /*pre: true*/
     /*post: crea una nueva linea con todos los parametros*/
-    void agregarLinea(ID p, list<_ID> s, Estado e);
+    void agregarLinea(ID p, list<ID> s, Estado e);
 
     Linea verLinea(IdStock i);
 
